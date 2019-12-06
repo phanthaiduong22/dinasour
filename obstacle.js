@@ -17,7 +17,6 @@ class Obstacle {
         this.x += this.speed;
     }
     display() {
-
         image(obsImg, this.x, this.y, this.w + 10, this.w + 10);
         // rect(this.x, this.y, this.w, this.w);
     }

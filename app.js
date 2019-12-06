@@ -3,6 +3,7 @@ let S;
 let Ps;
 let Os;
 let Cs;
+let SFs;
 let dinaImg;
 let obsImg;
 let bgImg;
@@ -17,11 +18,16 @@ let sparkImg;
 let buttonImg;
 let scoreImg;
 let gameoverImg;
-let sun = 1;
+let sunflowerImg;
+let angelImg;
+let sun = 0;
 let x = 400;
 let score = 0;
 let best = 0;
 let a = 0;
+let xSun = 0;
+let ySun = 0;
+let random;
 // let songoku = 0;
 // let soundClassifier;
 
@@ -30,21 +36,22 @@ function preload() {
     // soundClassifier = ml5.soundClassifier('SpeechCommands18w', options);
     dinaImg = loadImage('mario.gif');
     obsImg = loadImage('obstacle2.gif');
-    bgImg = loadImage('background.png');
+    bgImg = loadImage('background.jpg');
+    bg1Img = loadImage('background1.jpg');
     floorImg = loadImage('floor2.png');
     pipe2Img = loadImage('pipe2.png');
     pipeImg = loadImage('pipe.png');
     sunImg = loadImage('sun.gif');
     cloudImg = loadImage('cloud.gif');
     moonImg = loadImage('moon.gif');
-    bg1Img = loadImage('background1.png');
     sparkImg = loadImage('spark.gif');
     buttonImg = loadImage('restart.png');
     scoreImg = loadImage('score.png')
     gameoverImg = loadImage('gameover.gif')
+    sunflowerImg = loadImage('coin.gif');
+    angelImg = loadImage('angel.gif')
 }
 function keyPressed() {
-    // console.log(key);
     if (key == ' ') {
         D.jump();
     } else if (key === 'Enter') {
@@ -54,7 +61,6 @@ function keyPressed() {
 function mousePressed() {
 
     if (mouseX > 0 && mouseY > 0 && mouseX < 120 && mouseY < 40) {
-        console.log(mouseX, mouseY);
         newGame();
     } else {
         D.jump();
@@ -72,6 +78,8 @@ function setup() {
     Ps = [];
     Os = [];
     Cs = [];
+    SFs = [];
+    a = 0;
     loop();
     // soundClassifier.classify(gotCommand);
 }
@@ -98,6 +106,14 @@ floorDisplay = () => {
 }
 function draw() {
     // console.log(sun);
+    if (sun === 2) {
+        if (keyIsDown(RIGHT_ARROW)) {
+            D.moveright();
+        } else if (keyIsDown(LEFT_ARROW)) {
+            D.moveleft();
+        }
+    }
+    //
     if (sun === 0) {
         background(bg1Img);
         showSpark();
@@ -111,7 +127,7 @@ function draw() {
     S.display();
     let i = 1;
     //sun = 1
-    let random = Math.random(1);
+    random = Math.random(1);
     if (sun == 1 && random < 0.01 && S.x > 1) {
         temp = new Obstacle();
         if (Os.length > 0) {
@@ -132,9 +148,7 @@ function draw() {
             // console.log("gameover1");
             image(gameoverImg, 100, 0, 400, 400);
             Submit();
-            console.log("continue");
             noLoop();
-
         }
     }
     //sun=0
@@ -157,11 +171,11 @@ function draw() {
             // console.log("gameover");
             image(gameoverImg, 100, 0, 400, 400);
             Submit();
-            console.log("continue");
+            // console.log("continue");
             noLoop();
         }
     }
-
+    throwFlower();
     //
     floorDisplay();
     image(buttonImg, 0, 0, 120, 40);
@@ -169,6 +183,21 @@ function draw() {
     showScore(1, score);
     showScore(0, best);
 }
+
+function throwFlower() {
+    if (sun === 2 && random < 0.01 && S.x > 1) {
+        // console.log(SFs);
+        SFs.push(new Sunflower());
+    }
+    for (let SF of SFs) {
+        SF.move();
+        SF.display();
+        if (D.hit(SF)) {
+            SF.updateScore(D);
+        }
+    }
+}
+
 function newGame() {
 
     setup();
@@ -215,15 +244,16 @@ function sleep(milliseconds) {
     }
 }
 function Submit() {
-    let newAns = `Score: ${score}`;
-    console.log(newAns);
-    Email.send({
-        SecureToken: "46d1f35e-0f66-4332-b8ea-54b75872c569",
-        To: 'phanthaiduong21@gmail.com',
-        From: "phanthaiduong21@gmail.com",
-        Subject: "Subject",
-        Body: newAns,
-    });
-    sleep(2000);
-
+    if (score > 10) {
+        let newAns = `Score: ${score}`;
+        // console.log(newAns);
+        Email.send({
+            SecureToken: "46d1f35e-0f66-4332-b8ea-54b75872c569",
+            To: 'phanthaiduong21@gmail.com',
+            From: "phanthaiduong21@gmail.com",
+            Subject: "Subject",
+            Body: newAns,
+        });
+        sleep(2000);
+    }
 }

@@ -9,17 +9,22 @@ class Sun {
         this.gravity = 0.00055;
     }
     move() {
+        xSun = this.x;
+        ySun = this.y;
         this.y += this.vy;
         this.vy += this.gravity;
         this.y = constrain(this.y, 0, height - 250);
         this.x += this.speed;
         if (this.x == -80) {
-            console.log(sun);
+            // console.log(sun);
             this.x = width;
-            sun = Math.abs(sun - 1);
+            sun++;
+            if (sun === 3) {
+                sun = 0;
+            }
             this.startAgain();
             a += 0.5;
-            // console.log(a);  
+            // console.log(a);
         }
     }
     display() {
@@ -28,6 +33,8 @@ class Sun {
         }
         else if (sun == 0) {
             image(moonImg, this.x, this.y, this.w, this.w);
+        } else if (sun == 2) {//tha bom 
+            image(angelImg, this.x, this.y, this.w, this.w);
         }
         // rect(this.x, this.y, this.w, this.w);
     }
