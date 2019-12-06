@@ -52,7 +52,8 @@ function preload() {
     angelImg = loadImage('angel.gif')
 }
 function keyPressed() {
-    if (key == ' ') {
+    console.log(key);
+    if (key == ' ' || key == 'ArrowUp') {
         D.jump();
     } else if (key === 'Enter') {
         newGame();
