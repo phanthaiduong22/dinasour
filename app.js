@@ -131,7 +131,7 @@ function draw() {
     if (sun == 1 && random < 0.01 && S.x > 1) {
         temp = new Obstacle();
         if (Os.length > 0) {
-            if (temp.x - Os[Os.length - 1].x > 150 + a * 100)
+            if (temp.x - Os[Os.length - 1].x > 150 + a * 50)
                 Os.push(temp);
         }
         else {
@@ -155,7 +155,7 @@ function draw() {
     if (sun === 0 && random < 0.01 && S.x > 1) {
         temp = new Pipe()
         if (Ps.length > 0) {
-            if (temp.x - Ps[Ps.length - 1].x > 100 + a * 100)
+            if (temp.x - Ps[Ps.length - 1].x > 100 + a * 50)
                 Ps.push(temp);
         }
         else {
