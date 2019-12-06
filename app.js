@@ -32,12 +32,13 @@ let random;
 // let soundClassifier;
 
 function preload() {
-    const options = { probabilityThreshold: 0.95 };
+    // const options = { probabilityThreshold: 0.95 };
     // soundClassifier = ml5.soundClassifier('SpeechCommands18w', options);
     dinaImg = loadImage('mario.gif');
     obsImg = loadImage('obstacle2.gif');
     bgImg = loadImage('background.jpg');
     bg1Img = loadImage('background1.jpg');
+    bg2Img = loadImage('background2.jpg');
     floorImg = loadImage('floor2.png');
     pipe2Img = loadImage('pipe2.png');
     pipeImg = loadImage('pipe.png');
@@ -49,7 +50,8 @@ function preload() {
     scoreImg = loadImage('score.png')
     gameoverImg = loadImage('gameover.gif')
     sunflowerImg = loadImage('coin.gif');
-    angelImg = loadImage('angel.gif')
+    angelImg = loadImage('angel.gif');
+
 }
 function keyPressed() {
     // console.log(key);
@@ -118,8 +120,10 @@ function draw() {
     if (sun === 0) {
         background(bg1Img);
         showSpark();
-    } else {
+    } else if (sun === 1) {
         background(bgImg);
+    } else if (sun === 2) {
+        background(bg2Img);
     }
     //dinosaur
     D.display();
