@@ -9,3 +9,9 @@ canvas {
   margin: auto;
   width: 100%;
 }
+
+.keyboardArrow img {
+  display: flex;
+  margin: auto;
+  width: 10%;
+}
